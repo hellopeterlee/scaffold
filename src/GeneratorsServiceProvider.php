@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterLee\Scaffold;
+namespace HelloPeterlee\Scaffold;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -35,7 +35,7 @@ class GeneratorsServiceProvider extends ServiceProvider
 	private function registerScaffoldGenerator()
 	{
 		$this->app->singleton('command.larascaf.scaffold', function ($app) {
-			return $app['PeterLee\Scaffold\Commands\ScaffoldMakeCommand'];
+			return $app['HelloPeterlee\Scaffold\Commands\ScaffoldMakeCommand'];
 		});
 
 		$this->commands('command.larascaf.scaffold');

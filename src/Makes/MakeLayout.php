@@ -6,10 +6,10 @@
  * Time: 11:49 PM
  */
 
-namespace PeterLee\Scaffold\Makes;
+namespace HelloPeterlee\Scaffold\Makes;
 
 use Illuminate\Filesystem\Filesystem;
-use PeterLee\Scaffold\Commands\ScaffoldMakeCommand;
+use HelloPeterlee\Scaffold\Commands\ScaffoldMakeCommand;
 
 class MakeLayout
 {

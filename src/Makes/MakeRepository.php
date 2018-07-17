@@ -6,9 +6,9 @@
  * Time: 17:21
  */
 
-namespace PeterLee\Scaffold\Makes;
+namespace HelloPeterlee\Scaffold\Makes;
 
-use PeterLee\Scaffold\Commands\ScaffoldMakeCommand;
+use HelloPeterlee\Scaffold\Commands\ScaffoldMakeCommand;
 use Illuminate\Filesystem\Filesystem;
 
 class MakeRepository

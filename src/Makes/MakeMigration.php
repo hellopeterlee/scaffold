@@ -6,12 +6,12 @@
  * Time: 10:34 PM
  */
 
-namespace PeterLee\Scaffold\Makes;
+namespace HelloPeterlee\Scaffold\Makes;
 
 use Illuminate\Filesystem\Filesystem;
-use PeterLee\Scaffold\Commands\ScaffoldMakeCommand;
-use PeterLee\Scaffold\Migrations\SchemaParser;
-use PeterLee\Scaffold\Migrations\SyntaxBuilder;
+use HelloPeterlee\Scaffold\Commands\ScaffoldMakeCommand;
+use HelloPeterlee\Scaffold\Migrations\SchemaParser;
+use HelloPeterlee\Scaffold\Migrations\SyntaxBuilder;
 
 class MakeMigration
 {

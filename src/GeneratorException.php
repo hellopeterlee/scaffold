@@ -1,6 +1,6 @@
 <?php
 
-namespace PeterLee\Scaffold;
+namespace HelloPeterlee\Scaffold;
 
 class GeneratorException extends \Exception {
 

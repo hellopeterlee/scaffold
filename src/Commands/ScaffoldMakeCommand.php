@@ -1,23 +1,23 @@
 <?php
 
-namespace PeterLee\Scaffold\Commands;
+namespace HelloPeterlee\Scaffold\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Input;
-use PeterLee\Scaffold\Makes\MakeController;
-use PeterLee\Scaffold\Makes\MakeLayout;
-use PeterLee\Scaffold\Makes\MakeLocalization;
-use PeterLee\Scaffold\Makes\MakeMigration;
-use PeterLee\Scaffold\Makes\MakeModel;
-use PeterLee\Scaffold\Makes\MakeRepository;
-use PeterLee\Scaffold\Makes\MakeRoute;
-use PeterLee\Scaffold\Makes\MakerTrait;
-use PeterLee\Scaffold\Makes\MakeSeed;
-use PeterLee\Scaffold\Makes\MakeView;
-use PeterLee\Scaffold\Makes\MakeFormRequest;
-use PeterLee\Scaffold\Makes\MakePolicy;
-use PeterLee\Scaffold\Makes\MakeModelObserver;
+use HelloPeterlee\Scaffold\Makes\MakeController;
+use HelloPeterlee\Scaffold\Makes\MakeLayout;
+use HelloPeterlee\Scaffold\Makes\MakeLocalization;
+use HelloPeterlee\Scaffold\Makes\MakeMigration;
+use HelloPeterlee\Scaffold\Makes\MakeModel;
+use HelloPeterlee\Scaffold\Makes\MakeRepository;
+use HelloPeterlee\Scaffold\Makes\MakeRoute;
+use HelloPeterlee\Scaffold\Makes\MakerTrait;
+use HelloPeterlee\Scaffold\Makes\MakeSeed;
+use HelloPeterlee\Scaffold\Makes\MakeView;
+use HelloPeterlee\Scaffold\Makes\MakeFormRequest;
+use HelloPeterlee\Scaffold\Makes\MakePolicy;
+use HelloPeterlee\Scaffold\Makes\MakeModelObserver;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 

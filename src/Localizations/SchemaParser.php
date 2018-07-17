@@ -1,10 +1,10 @@
 <?php
 
-namespace PeterLee\Scaffold\Localizations;
+namespace HelloPeterlee\Scaffold\Localizations;
 
 /**
  * Class SchemaParser
- * @package PeterLee\Scaffold\Migrations
+ * @package HelloPeterlee\Scaffold\Migrations
  * @author Ryan Gurnick <ryangurnick@gmail.com>
  */
 class SchemaParser

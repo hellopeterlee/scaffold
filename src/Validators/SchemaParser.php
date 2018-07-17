@@ -1,10 +1,10 @@
 <?php
 
-namespace PeterLee\Scaffold\Validators;
+namespace HelloPeterlee\Scaffold\Validators;
 
 /**
  * Class SchemaParser
- * @package PeterLee\Scaffold\Migrations
+ * @package HelloPeterlee\Scaffold\Migrations
  * @author Ryan Gurnick <ryangurnick@gmail.com>
  */
 class SchemaParser

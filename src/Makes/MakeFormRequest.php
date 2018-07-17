@@ -1,10 +1,10 @@
 <?php
-namespace PeterLee\Scaffold\Makes;
+namespace HelloPeterlee\Scaffold\Makes;
 
 use Illuminate\Filesystem\Filesystem;
-use PeterLee\Scaffold\Commands\ScaffoldMakeCommand;
-use PeterLee\Scaffold\Validators\SchemaParser as ValidatorParser;
-use PeterLee\Scaffold\Validators\SyntaxBuilder as ValidatorSyntax;
+use HelloPeterlee\Scaffold\Commands\ScaffoldMakeCommand;
+use HelloPeterlee\Scaffold\Validators\SchemaParser as ValidatorParser;
+use HelloPeterlee\Scaffold\Validators\SyntaxBuilder as ValidatorSyntax;
 
 class MakeFormRequest
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace PeterLee\Scaffold\Migrations;
+namespace HelloPeterlee\Scaffold\Migrations;
 
-use PeterLee\Scaffold\GeneratorException;
+use HelloPeterlee\Scaffold\GeneratorException;
 
 
 /**
  * Class SyntaxBuilder with modifications by Fernando
- * @package PeterLee\Scaffold\Migrations
+ * @package HelloPeterlee\Scaffold\Migrations
  * @author Jeffrey Way <jeffrey@jeffrey-way.com>
  */
 class SyntaxBuilder

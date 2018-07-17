@@ -1,10 +1,10 @@
 <?php
 
-namespace PeterLee\Scaffold\Validators;
+namespace HelloPeterlee\Scaffold\Validators;
 
 /**
  * Class SyntaxBuilder
- * @package PeterLee\Scaffold\Migrations
+ * @package HelloPeterlee\Scaffold\Migrations
  * @author Ryan Gurnick <ryangurnick@gmail.com>
  */
 class SyntaxBuilder

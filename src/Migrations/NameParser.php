@@ -1,10 +1,10 @@
 <?php
 
-namespace PeterLee\Scaffold\Migrations;
+namespace HelloPeterlee\Scaffold\Migrations;
 
 /**
  * Class NameParser
- * @package PeterLee\Scaffold\Migrations with modifications by Fernando
+ * @package HelloPeterlee\Scaffold\Migrations with modifications by Fernando
  * @author Jeffrey Way <jeffrey@jeffrey-way.com>
  */
 class NameParser

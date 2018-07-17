@@ -1,5 +1,5 @@
 {
-  "name": "peter/scaffold",
+  "name": "hellopeterlee/scaffold",
   "description": "Extend Laravel 5.5's generators scaffold.",
   "keywords": [
     "laravel",
@@ -11,7 +11,7 @@
   "minimum-stability": "dev",
   "authors": [
     {
-      "name": "PeterLee",
+      "name": "peirenlei",
       "email": "peirenlei@gmail.com"
     }
   ],
@@ -24,13 +24,13 @@
   },
   "autoload": {
     "psr-4": {
-      "PeterLee\\Scaffold\\": "src/"
+      "HelloPeterlee\\Scaffold\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "PeterLee\\Scaffold\\GeneratorsServiceProvider"
+        "HelloPeterlee\\Scaffold\\GeneratorsServiceProvider"
       ]
     }
   }

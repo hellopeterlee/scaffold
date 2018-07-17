@@ -6,7 +6,7 @@
  * Time: 10:34 PM
  */
 
-namespace PeterLee\Scaffold\Makes;
+namespace HelloPeterlee\Scaffold\Makes;
 
 use Illuminate\Filesystem\Filesystem;
 use PeterLee\Scaffold\Commands\ScaffoldMakeCommand;
