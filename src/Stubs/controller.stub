@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use {{namespace}}Models\{{Model}};
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\{{Model}}Request;
+use App\Repositories\{{Model}}RepositoryEloquent;
+
+class {{Models}}Controller extends Controller
+{
+    protected ${{model}}Repo;
+
+    public function __construct({{Model}}RepositoryEloquent ${{model}}Repo)
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->{{model}}Repo = ${{model}}Repo;
+    }
+
+	public function index()
+	{
+		${{models}} = $this->{{model}}Repo->paginate();
+		return view('{{models}}.index', compact('{{models}}'));
+	}
+
+    public function show({{Model}} ${{model}})
+    {
+        return view('{{models}}.show', compact('{{model}}'));
+    }
+
+	public function create({{Model}} ${{model}})
+	{
+		return view('{{models}}.create_and_edit', compact('{{model}}'));
+	}
+
+	public function store({{Model}}Request $request)
+	{
+	    ${{model}} = $this->{{model}}Repo->create($request->all());
+		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '创建成功.');
+	}
+
+	public function edit({{Model}} ${{model}})
+	{
+        $this->authorize('update', ${{model}});
+		return view('{{models}}.create_and_edit', compact('{{model}}'));
+	}
+
+	public function update({{Model}}Request $request, {{Model}} ${{model}})
+	{
+		$this->authorize('update', ${{model}});
+		${{model}}->update($request->all());
+
+		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '更新成功.');
+	}
+
+	public function destroy({{Model}} ${{model}})
+	{
+		$this->authorize('destroy', ${{model}});
+		${{model}}->delete();
+
+		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '删除成功.');
+	}
+
+	public function batch_destroy(Request $request)
+    {
+        $ids = $request->get('ids');
+        {{Model}}::destroy($ids);
+        return redirect()->route('{{prefix}}{{models}}.index')->with('message', '删除成功.');
+    }
+}

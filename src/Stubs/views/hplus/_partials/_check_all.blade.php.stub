@@ -1,0 +1,7 @@
+<script>
+    $(':checkbox[data-check-target]').on('ifChecked ifUnchecked', function(event){
+        var _event = event.type.replace('if', '').replace('ed', '').toLowerCase();
+        var target = $(this).attr('data-check-target');
+        $(target).iCheck(_event);
+    });
+</script>

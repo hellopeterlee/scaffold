@@ -1,0 +1,31 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div class="container">
+    <div class="col-md-12 col-md-offset-1">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{Model}} / Show #{{ ${{model}}->id }}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link" href="{{ route('{{models}}.index') }}">
+                        返回
+                    </a>
+                    <a class="dropdown-toggle" href="{{ route('{{models}}.edit',${{model}}->id) }}">
+                        编辑
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" style="padding:0px;">
+                <table class="table table-bordered table-hover">
+                    <tbody>
+                        {{form_fields_show}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@endsection

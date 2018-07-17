@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Repositories;
+
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Repositories\{{Model}}Repository;
+use App\Models\{{Model}};
+
+class {{Model}}RepositoryEloquent extends BaseRepository implements {{Model}}Repository
+{
+    public function model()
+    {
+        return {{Model}}::class;
+    }
+
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+}

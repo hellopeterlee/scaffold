@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Repositories;
+
+use Prettus\Repository\Contracts\RepositoryInterface;
+
+interface {{Model}}Repository extends RepositoryInterface
+{
+    //
+}

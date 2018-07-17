@@ -1,0 +1,62 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="btn-group">
+                <a class="btn btn-primary" href="{{ route('{{prefix}}{{models}}.create') }}" type="button btn-sm btn-primary">&nbsp;添加</a>
+            </p>
+            @if(${{models}}->count())
+                <div class="table-responsive">
+                    <form id="betch_form" action="{{route('{{prefix}}{{models}}.batch_destroy')}}" method="POST" accept-charset="UTF-8">
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <th class="text-center"><input type="checkbox" class="checkbox i-checks" data-check-target=".id-checkbox" /> </th>
+                                {{table_fields_header}}
+                                <th class="text-right">OPTIONS</th>
+                            </thead>
+                            <tbody>
+                                @foreach(${{models}} as ${{model}})
+                                    <tr>
+                                        <td class="text-center"><input type="checkbox" class="checkbox i-checks id-checkbox" name="ids[]" value="${{model}}->id" /> <strong>{{${{model}}->id}}</strong></td>
+
+                                        {{table_fields_content}}
+
+                                        <td class="text-right">
+                                            <a class="btn btn-xs btn-primary" href="{{ route('{{prefix}}{{models}}.show', ${{model}}->id) }}">
+                                                <i class="glyphicon glyphicon-eye-open"></i>
+                                            </a>
+
+                                            <a class="btn btn-xs btn-warning" href="{{ route('{{prefix}}{{models}}.edit', ${{model}}->id) }}">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </a>
+
+                                            <a href="javascript:;" data-url="{{ route('{{prefix}}{{models}}.destroy', ${{model}}->id) }}" class="btn btn-xs btn-warning form-delete">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{ csrf_field() }}
+                    </form>
+                    <p class="btn-group">
+                        <a class="btn btn-primary" onclick="javascript:batch_delete_confirm(this)" type="button btn-sm btn-warning">&nbsp;批量删除</a>
+                    </p>
+                </div>
+                <div>{!! ${{models}}->render() !!}</div>
+            @else
+                <h3 class="text-center alert alert-info">Empty!</h3>
+            @endif
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('js')
+    @include('_partials._form_confirm_delete')
+    @include('_partials._check_all')
+@endsection

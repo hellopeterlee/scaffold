@@ -1,0 +1,9 @@
+
+                <div class="form-group @if($errors->has('{{field.name}}')) has-error @endif">
+                	<label class="col-sm-2 control-label"  for="{{field.name}}-field">{{field.Name}}</label>
+                	<div class="col-sm-10">
+                	    <textarea name="{{field.name}}" id="{{field.name}}-field" class="form-control" rows="3">{{ old('{{field.name}}', ${{model}}->{{field.name}} ) }}</textarea>
+                	    @if ($errors->has('{{field.name}}'))  {{ $errors->first('{{field.name}}') }} @endif
+                	</div>
+                </div>
+                <div class="hr-line-dashed"></div>
