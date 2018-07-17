@@ -7,14 +7,15 @@
 
     <title>后台管理系统 @yield('title', config('app.name', 'Fangxianbz')) - {{ config('app.name', '后台管理系统')  }}</title>
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
-    <link href="/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="/hplus/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
-    <link href="/hplus/css/animate.min.css" rel="stylesheet">
-    <link href="/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
-    <link href="/hplus/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/layer/3.1.0/theme/default/layer.css" rel="stylesheet">
-    <link href="/hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="//cdn.peterlee.cn/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/animate.min.css" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/layer/3.1.0/theme/default/layer.css" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
 
     @yield('css')
 
@@ -27,7 +28,7 @@
 
 <body class="gray-bg">
     <div id="app">
-        <div class="wrapper wrapper-content">
+        <div class="container wrapper wrapper-content">
             @if(session('message'))
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -41,13 +42,12 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/hplus/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/hplus/js/jquery.metadata.js"></script>
-    <script src="/hplus/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="/hplus/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
-    <script src="/hplus/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/jquery.min.js?v=2.1.4"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="//cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/plugins/sweetalert/sweetalert.min.js"></script>
 
     @yield('js')
     <script>
@@ -57,7 +57,7 @@
             }
         });
     </script>
-    <script src="/hplus/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/plugins/iCheck/icheck.min.js"></script>
     <script>
         $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
     </script>

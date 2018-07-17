@@ -32,8 +32,8 @@
                                                 <i class="glyphicon glyphicon-edit"></i>
                                             </a>
 
-                                            <a href="javascript:;" data-url="{{ route('{{prefix}}{{models}}.destroy', ${{model}}->id) }}" class="btn btn-xs btn-warning form-delete">
-                                                <i class="glyphicon glyphicon-remove"></i>
+                                            <a href="javascript:;" data-url="{{ route('{{prefix}}{{models}}.destroy', ${{model}}->id) }}" class="btn btn-xs btn-danger form-delete">
+                                                <i class="glyphicon glyphicon-trash"></i>
                                             </a>
                                         </td>
                                     </tr>

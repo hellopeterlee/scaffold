@@ -11,7 +11,7 @@ Laravel Scaffold Generator, for Laravel 5.3.
 ### Step 1: Install Through Composer
 
 ```
-composer require 'peter/scaffold' --dev
+composer require 'hellopeterlee/scaffold' --dev
 ```
 
 ### Step 2: Add the Service Provider
@@ -23,7 +23,7 @@ public function register()
 {
      if (app()->environment() == 'local' || app()->environment() == 'testing') {
 
-        $this->app->register(\Peter\Scaffold\GeneratorsServiceProvider::class);
+        $this->app->register(\HelloPeterlee\Scaffold\GeneratorsServiceProvider::class);
 
     }
 }
@@ -97,7 +97,5 @@ Generate the following:
 
 ## Screenshot
 
-![file](https://cloud.githubusercontent.com/assets/324764/22488519/7466a638-e84d-11e6-8201-99ad377d6270.png)
+![file](https://user-images.githubusercontent.com/1481738/42799786-b5b9c9d2-89cb-11e8-8a6a-7729befcd354.png)
 
-## Thinks to
-- [laralib/l5scaffold](https://github.com/laralib/l5scaffold)
