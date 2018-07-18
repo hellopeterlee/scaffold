@@ -16,7 +16,8 @@
     }
   ],
   "require": {
-    "php": ">=7.0.0"
+    "php": ">=7.0.0",
+    "prettus/l5-repository": "^2.6"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.7",

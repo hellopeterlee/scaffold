@@ -19,7 +19,7 @@
                             <tbody>
                                 @foreach(${{models}} as ${{model}})
                                     <tr>
-                                        <td class="text-center"><input type="checkbox" class="checkbox i-checks id-checkbox" name="ids[]" value="${{model}}->id" /> <strong>{{${{model}}->id}}</strong></td>
+                                        <td class="text-center"><input type="checkbox" class="checkbox i-checks id-checkbox" name="ids[]" value="{{ ${{model}}->id }}" /> <strong>{{${{model}}->id}}</strong></td>
 
                                         {{table_fields_content}}
 
