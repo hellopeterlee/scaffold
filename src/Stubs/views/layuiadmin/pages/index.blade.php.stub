@@ -1,0 +1,191 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+
+            <div class="layui-card">
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <div class="layui-form-item">
+
+                        {{table_search_content}}
+
+                        <div class="layui-inline">
+                            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit="" lay-filter="LAY-user-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-card-body">
+                    <div style="padding-bottom: 10px;">
+                        <button class="layui-btn layuiadmin-btn" data-type="batchdel">删除</button>
+                        <button class="layui-btn layuiadmin-btn" data-type="add">添加</button>
+                    </div>
+
+                    <script type="text/html" id="options">
+                        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+                        <a class="layui-btn layui-btn-xs" lay-event="edit" data-id="@{{d.id}}">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
+
+                    <table class="layui-table" id="dataTable" lay-filter="dataTable"
+                        lay-data="{url:'/{{models}}', page:true, id:'dataTable'}" lay-filter="dataTable">
+                        <thead>
+                            <tr>
+                                <th lay-data="{checkbox: true,fixed: true}"></th>
+                                <th lay-data="{field: 'id'}">ID</th>
+                                {{table_fields_header}}
+                                <th lay-data="{fixed: 'right', width: 220, align:'center', toolbar: '#options'}">#</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <script>
+        layui.use(['index', 'table', 'admin', 'form'], function () {
+            const table = layui.table;
+            const $ = layui.$;
+            const admin = layui.admin;
+            const form = layui.form;
+
+            form.on('submit(LAY-user-search)', function (data) {
+                const field = data.field;
+                let search = [];
+                let searchFields = [];
+                Object.keys(field).forEach( k => field[k] && search.push(`${k}:${field[k]}`) && searchFields.push(`${k}:like`));
+                search = search.join(';');
+                searchFields = searchFields.join(';');
+                table.reload('dataTable', {
+                    where: {
+                        search : search,
+                        searchFields : searchFields,
+                        searchJoin : 'and'
+                    }
+                });
+            });
+
+            //监听工具条
+            table.on('tool(dataTable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                const rowdata = obj.data; //获得当前行数据
+                const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                const tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if (layEvent === 'detail') { //查看
+                    layer.open({
+                        type: 2,
+                        title: "查看{{model}}",
+                        content: `/{{models}}/${rowdata.id}`,
+                        area: ["420px", "450px"],
+                        btn: ["关闭"]
+                    });
+                } else if (layEvent === 'del') { //删除
+                    layer.confirm('真的删除行么', function (index) {
+                        //向服务端发送删除指令
+                        admin.req({
+                            type : 'DELETE',
+                            url: `/{{models}}/${rowdata.id}`,
+                            success : function(data){
+                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                layer.close(index);
+                            }
+                        });
+                    });
+                } else if (layEvent === 'edit') { //编辑
+                    layer.open({
+                        type: 2,
+                        title: "编辑{{model}}",
+                        content: `/{{models}}/${rowdata.id}/edit`,
+                        area: ["420px", "430px"],
+                        btn: ["确定", "取消"],
+                        yes: function (index, layero) {
+                            const iframeWindow = window['layui-layer-iframe' + index];
+                            const submit_button_id = "LAY-user-submit";
+                            const submit_button = layero.find("iframe").contents().find("#" + submit_button_id);
+                            iframeWindow.layui.form.on("submit(" + submit_button_id + ")", function (data) {
+                                const field = data.field;
+                                admin.req({
+                                    type : 'PUT',
+                                    url: `/{{models}}/${rowdata.id}`,
+                                    data : field,
+                                    success : function(data){
+                                        obj.update(data.data);
+                                        layer.close(index);
+                                    }
+                                });
+                            });
+                            submit_button.trigger("click")
+                        },
+                        success: function (e, t) {
+                        }
+                    });
+                }
+            });
+
+            //事件
+            const active = {
+                batchdel: function () {
+                    const checkStatus = table.checkStatus('dataTable');
+                    const checkData = checkStatus.data; //得到选中的数据
+
+                    if (checkData.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+
+                    layer.confirm('确定删除吗？', function (index) {
+                        const ids = checkData.map( item => item.id );
+                        admin.req({
+                            type : 'post',
+                            url: "/{{models}}/batch_destroy",
+                            data : {ids},
+                            success : function(data){
+                                table.reload('dataTable');
+                                layer.msg('已删除');
+                            }
+                        });
+                    });
+                },
+                add: function () {
+                    layer.open({
+                        type: 2,
+                        title: "添加{{model}}",
+                        content: "/{{models}}/create",
+                        area: ["420px", "430px"],
+                        btn: ["确定", "取消"],
+                        yes: function (index, layero) {
+                            const iframeWindow = window['layui-layer-iframe' + index];
+                            const submit_button_id = "LAY-user-submit";
+                            const submit_button = layero.find("iframe").contents().find("#" + submit_button_id);
+                            iframeWindow.layui.form.on("submit(" + submit_button_id + ")", function (data) {
+                                const field = data.field;
+                                admin.req({
+                                    type : 'post',
+                                    url: "{{ route('{{models}}.store') }}",
+                                    data : field,
+                                    success : function(data){
+                                        table.reload('dataTable');
+                                        layer.close(index);
+                                    }
+                                });
+                            });
+                            submit_button.trigger("click")
+                        },
+                        success: function (e, t) {
+                        }
+                    });
+                }
+            };
+
+            $('.layui-btn.layuiadmin-btn').on('click', function () {
+                const type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+    </script>
+@endsection

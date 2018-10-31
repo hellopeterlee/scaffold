@@ -18,9 +18,18 @@ class {{Models}}Controller extends Controller
         $this->{{model}}Repo = ${{model}}Repo;
     }
 
-	public function index()
+	public function index(Request $request)
 	{
-		${{models}} = $this->{{model}}Repo->paginate();
+	    //search=name:John;email:john@gmail.com&searchFields=name:like;email:=
+		$this->{{model}}Repo->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        ${{models}} = $this->{{model}}Repo->paginate($request->get('limit',10));
+		if ($request->ajax()) {
+            return [
+                "code" => '0',
+                "count" => $projects->total(),
+                "data" => $projects->items(),
+            ];
+        }
 		return view('{{models}}.index', compact('{{models}}'));
 	}
 
@@ -37,28 +46,35 @@ class {{Models}}Controller extends Controller
 	public function store({{Model}}Request $request)
 	{
 	    ${{model}} = $this->{{model}}Repo->create($request->all());
+	    if ($request->ajax()) {
+            return ["code" => '0', "data" => ${{model}}];
+        }
 		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '创建成功.');
 	}
 
 	public function edit({{Model}} ${{model}})
 	{
-        $this->authorize('update', ${{model}});
+        //$this->authorize('update', ${{model}});
 		return view('{{models}}.create_and_edit', compact('{{model}}'));
 	}
 
 	public function update({{Model}}Request $request, {{Model}} ${{model}})
 	{
-		$this->authorize('update', ${{model}});
+		//$this->authorize('update', ${{model}});
 		${{model}}->update($request->all());
-
+        if ($request->ajax()) {
+            return ["code" => '0', "data" => ${{model}}];
+        }
 		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '更新成功.');
 	}
 
-	public function destroy({{Model}} ${{model}})
+	public function destroy(Request $request, {{Model}} ${{model}})
 	{
-		$this->authorize('destroy', ${{model}});
+		//$this->authorize('destroy', ${{model}});
 		${{model}}->delete();
-
+		if ($request->ajax()) {
+            return ["code" => '0'];
+        }
 		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '删除成功.');
 	}
 
@@ -66,6 +82,9 @@ class {{Models}}Controller extends Controller
     {
         $ids = $request->get('ids');
         {{Model}}::destroy($ids);
+        if ($request->ajax()) {
+            return ["code" => '0'];
+        }
         return redirect()->route('{{prefix}}{{models}}.index')->with('message', '删除成功.');
     }
 }

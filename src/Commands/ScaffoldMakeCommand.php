@@ -101,7 +101,7 @@ class ScaffoldMakeCommand extends Command
 
         $this->makeRepository();
 
-        $this->call('migrate');
+        //$this->call('migrate');
 
         $this->line("\n----------- $footer -----------");
         $this->comment("----------- $dump -----------");

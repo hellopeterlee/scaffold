@@ -88,6 +88,7 @@ class MakeView
                 'form_fields_show' => $this->getFields($metas['ui'], 'show'),
                 'table_fields_header' => $this->getFields($metas['ui'], 'header'),
                 'table_fields_content' => $this->getFields($metas['ui'], 'content'),
+                'table_search_content' => $this->getFields($metas['ui'], 'search'),
             ]
         );
 

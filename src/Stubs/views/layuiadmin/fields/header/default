@@ -1,0 +1,1 @@
+<th lay-data="{field: '{{field.name}}'}">{{field.Name}}</th>

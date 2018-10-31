@@ -1,0 +1,60 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="layui-card">
+        <div class="layui-card-header">
+            @if(${{model}}->id) 编辑 #{{${{model}}->id}} @else 添加 @endif
+        </div>
+
+        <form class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list">
+
+            {{form_fields_fillable}}
+
+            {{csrf_field()}}
+
+            <div class="layui-form-item layui-layout-admin layui-hide">
+                <div class="layui-input-block">
+                    <div class="layui-footer" style="left: 0;">
+                        <button class="layui-btn" lay-submit="" lay-filter="LAY-user-submit" id="LAY-user-submit">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+@endsection
+
+
+@section('script')
+    <script>
+        layui.use(['index', 'form', 'laydate'], function () {
+            var $ = layui.$
+                , admin = layui.admin
+                , element = layui.element
+                , layer = layui.layer
+                , laydate = layui.laydate
+                , form = layui.form;
+
+            form.render(null, 'component-form-group');
+
+            laydate.render({
+                elem: '#LAY-component-form-group-date'
+            });
+
+            /* 自定义验证规则 */
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+                , pass: [/(.+){6,12}$/, '密码必须6到12位']
+                , content: function (value) {
+                    layedit.sync(editIndex);
+                }
+            });
+
+        });
+    </script>
+@endsection

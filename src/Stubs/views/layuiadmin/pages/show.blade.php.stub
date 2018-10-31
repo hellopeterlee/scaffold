@@ -1,0 +1,27 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span class="layui-breadcrumb">
+                      <a href="/{{models}}">列表</a>
+                      <a><cite>详情</cite></a>
+                    </span>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-size="lg">
+                        <colgroup>
+                            <col width="200">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        {{form_fields_show}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
