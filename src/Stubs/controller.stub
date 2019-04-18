@@ -26,8 +26,8 @@ class {{Models}}Controller extends Controller
 		if ($request->ajax()) {
             return [
                 "code" => '0',
-                "count" => $projects->total(),
-                "data" => $projects->items(),
+                "count" => ${{models}}->total(),
+                "data" => ${{models}}->items(),
             ];
         }
 		return view('{{models}}.index', compact('{{models}}'));
