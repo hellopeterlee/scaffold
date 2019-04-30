@@ -1,3 +1,8 @@
 
-Route::resource('{{models}}', '{{Models}}Controller', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-Route::post('/{{models}}/batch_destroy', "{{Models}}Controller@batch_destroy")->name('{{models}}.batch_destroy');
+Route::resource('/{{module}}/games', '{{Module}}\GamesController',
+    [
+        'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
+        'as' => '{{module}}'
+    ]
+);
+Route::post('/{{module}}/{{models}}/batch_destroy', "{{Module}}\{{Models}}Controller@batch_destroy")->name('{{module}}.{{models}}.batch_destroy');

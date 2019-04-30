@@ -134,6 +134,9 @@ class ScaffoldMakeCommand extends Command
 
         $this->meta['schema'] = $this->option('schema');
         $this->meta['prefix'] = ($prefix = $this->option('prefix')) ? "$prefix." : "";
+
+        $this->meta['module'] = ($module = $this->option('module')) ? "$module" : "admin";
+        $this->meta['Module'] = str_singular(ucfirst($this->meta['module']));
     }
 
     /**
@@ -306,6 +309,13 @@ class ScaffoldMakeCommand extends Command
                     InputOption::VALUE_OPTIONAL,
                     'Generate schema with prefix',
                     false
+                ],
+                [
+                    'module',
+                    'module',
+                    InputOption::VALUE_OPTIONAL,
+                    'Generate files in module folder',
+                    'admin'
                 ]
             ];
     }

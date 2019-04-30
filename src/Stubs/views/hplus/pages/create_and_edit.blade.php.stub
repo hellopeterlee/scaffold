@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('{{module}}.layouts.app')
 
 @section('content')
 
@@ -7,10 +7,10 @@
     <div class="row">
         <div class="col-sm-12">
             @if(${{model}}->id)
-                <form class="form-horizontal" action="{{ route('{{prefix}}{{models}}.update', ${{model}}->id) }}" method="POST" accept-charset="UTF-8">
+                <form class="form-horizontal" action="{{ route('{{module}}.{{prefix}}{{models}}.update', ${{model}}->id) }}" method="POST" accept-charset="UTF-8">
                     <input type="hidden" name="_method" value="PUT">
             @else
-                <form class="form-horizontal" action="{{ route('{{prefix}}{{models}}.store') }}" method="POST" accept-charset="UTF-8">
+                <form class="form-horizontal" action="{{ route('{{module}}.{{prefix}}{{models}}.store') }}" method="POST" accept-charset="UTF-8">
             @endif
                     {{csrf_field()}}
 
@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <button class="btn btn-primary" type="submit">保存内容</button>
-                            <a class="btn btn-white" href="{{ route('{{prefix}}{{models}}.index') }}">取消</a>
+                            <a class="btn btn-white" href="{{ route('{{module}}.{{prefix}}{{models}}.index') }}">取消</a>
                         </div>
                     </div>
                 </form>

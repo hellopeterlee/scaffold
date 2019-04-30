@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('{{module}}.layouts.app')
 
 @section('content')
 
@@ -8,10 +8,10 @@
             <div class="ibox-title">
                 <h5>{{Model}} / Show #{{ ${{model}}->id }}</h5>
                 <div class="ibox-tools">
-                    <a class="collapse-link" href="{{ route('{{models}}.index') }}">
+                    <a class="collapse-link" href="{{ route('{{module}}.{{models}}.index') }}">
                         返回
                     </a>
-                    <a class="dropdown-toggle" href="{{ route('{{models}}.edit',${{model}}->id) }}">
+                    <a class="dropdown-toggle" href="{{ route('{{module}}.{{models}}.edit',${{model}}->id) }}">
                         编辑
                     </a>
                 </div>

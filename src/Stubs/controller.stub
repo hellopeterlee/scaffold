@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use {{namespace}}Models\{{Model}};
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class {{Models}}Controller extends Controller
 
     public function __construct({{Model}}RepositoryEloquent ${{model}}Repo)
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        //$this->middleware('auth', ['except' => ['index', 'show']]);
         $this->{{model}}Repo = ${{model}}Repo;
     }
 
@@ -30,17 +30,17 @@ class {{Models}}Controller extends Controller
                 "data" => ${{models}}->items(),
             ];
         }
-		return view('{{models}}.index', compact('{{models}}'));
+		return view('{{module}}.{{models}}.index', compact('{{models}}'));
 	}
 
     public function show({{Model}} ${{model}})
     {
-        return view('{{models}}.show', compact('{{model}}'));
+        return view('{{module}}.{{models}}.show', compact('{{model}}'));
     }
 
 	public function create({{Model}} ${{model}})
 	{
-		return view('{{models}}.create_and_edit', compact('{{model}}'));
+		return view('{{module}}.{{models}}.create_and_edit', compact('{{model}}'));
 	}
 
 	public function store({{Model}}Request $request)
@@ -49,13 +49,13 @@ class {{Models}}Controller extends Controller
 	    if ($request->ajax()) {
             return ["code" => '0', "data" => ${{model}}];
         }
-		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '创建成功.');
+		return redirect()->route('{{module}}.{{prefix}}{{models}}.index')->with('message', '创建成功.');
 	}
 
 	public function edit({{Model}} ${{model}})
 	{
         //$this->authorize('update', ${{model}});
-		return view('{{models}}.create_and_edit', compact('{{model}}'));
+		return view('{{module}}.{{models}}.create_and_edit', compact('{{model}}'));
 	}
 
 	public function update({{Model}}Request $request, {{Model}} ${{model}})
@@ -65,7 +65,7 @@ class {{Models}}Controller extends Controller
         if ($request->ajax()) {
             return ["code" => '0', "data" => ${{model}}];
         }
-		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '更新成功.');
+		return redirect()->route('{{module}}.{{prefix}}{{models}}.index')->with('message', '更新成功.');
 	}
 
 	public function destroy(Request $request, {{Model}} ${{model}})
@@ -75,7 +75,7 @@ class {{Models}}Controller extends Controller
 		if ($request->ajax()) {
             return ["code" => '0'];
         }
-		return redirect()->route('{{prefix}}{{models}}.index')->with('message', '删除成功.');
+		return redirect()->route('{{module}}.{{prefix}}{{models}}.index')->with('message', '删除成功.');
 	}
 
 	public function batch_destroy(Request $request)
@@ -85,6 +85,6 @@ class {{Models}}Controller extends Controller
         if ($request->ajax()) {
             return ["code" => '0'];
         }
-        return redirect()->route('{{prefix}}{{models}}.index')->with('message', '删除成功.');
+        return redirect()->route('{{module}}.{{prefix}}{{models}}.index')->with('message', '删除成功.');
     }
 }

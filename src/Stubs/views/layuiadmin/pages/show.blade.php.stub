@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('{{module}}.layouts.app')
 
 @section('content')
     <div class="layui-row layui-col-space15">
@@ -6,7 +6,7 @@
             <div class="layui-card">
                 <div class="layui-card-header">
                     <span class="layui-breadcrumb">
-                      <a href="/{{models}}">列表</a>
+                      <a href="/{{module}}/{{models}}">列表</a>
                       <a><cite>详情</cite></a>
                     </span>
                 </div>

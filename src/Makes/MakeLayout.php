@@ -37,6 +37,8 @@ class MakeLayout
      */
     protected function start()
     {
+        $this->scaffoldCommandObj->line("\n--- Layouts ---");
+
         $ui = $this->scaffoldCommandObj->getMeta()['ui'];
         $this->putViewLayout("Stubs/views/$ui/layout.blade.php.stub", 'layouts/app.blade.php');
         $this->putViewLayout("Stubs/views/$ui/error.blade.php.stub", 'common/error.blade.php');
@@ -81,6 +83,6 @@ class MakeLayout
      */
     protected function getPathResource()
     {
-        return './resources/views/';
+        return './resources/views/admin/';
     }
 }

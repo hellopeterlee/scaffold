@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('{{module}}.layouts.app')
 
 @section('content')
     <div class="layui-row layui-col-space15">
@@ -31,7 +31,7 @@
                     </script>
 
                     <table class="layui-table" id="dataTable" lay-filter="dataTable"
-                        lay-data="{url:'/{{models}}', page:true, id:'dataTable'}" lay-filter="dataTable">
+                        lay-data="{url:'/{{module}}/{{models}}', page:true, id:'dataTable'}" lay-filter="dataTable">
                         <thead>
                             <tr>
                                 <th lay-data="{checkbox: true,fixed: true}"></th>
@@ -101,7 +101,7 @@
                     layer.open({
                         type: 2,
                         title: "编辑{{model}}",
-                        content: `/{{models}}/${rowdata.id}/edit`,
+                        content: `/{{module}}/{{models}}/${rowdata.id}/edit`,
                         area: ["420px", "430px"],
                         btn: ["确定", "取消"],
                         yes: function (index, layero) {
@@ -112,7 +112,7 @@
                                 const field = data.field;
                                 admin.req({
                                     type : 'PUT',
-                                    url: `/{{models}}/${rowdata.id}`,
+                                    url: `/{{module}}/{{models}}/${rowdata.id}`,
                                     data : field,
                                     success : function(data){
                                         obj.update(data.data);
@@ -142,7 +142,7 @@
                         const ids = checkData.map( item => item.id );
                         admin.req({
                             type : 'post',
-                            url: "/{{models}}/batch_destroy",
+                            url: "/{{module}}/{{models}}/batch_destroy",
                             data : {ids},
                             success : function(data){
                                 table.reload('dataTable');
@@ -155,7 +155,7 @@
                     layer.open({
                         type: 2,
                         title: "添加{{model}}",
-                        content: "/{{models}}/create",
+                        content: "/{{module}}/{{models}}/create",
                         area: ["420px", "430px"],
                         btn: ["确定", "取消"],
                         yes: function (index, layero) {
@@ -166,7 +166,7 @@
                                 const field = data.field;
                                 admin.req({
                                     type : 'post',
-                                    url: "{{ route('{{models}}.store') }}",
+                                    url: "{{ route('{{module}}.{{models}}.store') }}",
                                     data : field,
                                     success : function(data){
                                         table.reload('dataTable');

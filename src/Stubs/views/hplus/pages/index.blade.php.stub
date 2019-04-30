@@ -1,15 +1,15 @@
-@extends('layouts.app')
+@extends('{{module}}.layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
             <p class="btn-group">
-                <a class="btn btn-primary" href="{{ route('{{prefix}}{{models}}.create') }}" type="button btn-sm btn-primary">&nbsp;添加</a>
+                <a class="btn btn-primary" href="{{ route('{{module}}.{{prefix}}{{models}}.create') }}" type="button btn-sm btn-primary">&nbsp;添加</a>
             </p>
             @if(${{models}}->count())
                 <div class="table-responsive">
-                    <form id="betch_form" action="{{route('{{prefix}}{{models}}.batch_destroy')}}" method="POST" accept-charset="UTF-8">
+                    <form id="betch_form" action="{{route('{{module}}.{{prefix}}{{models}}.batch_destroy')}}" method="POST" accept-charset="UTF-8">
                         <table class="table table-condensed table-striped">
                             <thead>
                                 <th class="text-center"><input type="checkbox" class="checkbox i-checks" data-check-target=".id-checkbox" /> </th>
@@ -24,15 +24,15 @@
                                         {{table_fields_content}}
 
                                         <td class="text-right">
-                                            <a class="btn btn-xs btn-primary" href="{{ route('{{prefix}}{{models}}.show', ${{model}}->id) }}">
+                                            <a class="btn btn-xs btn-primary" href="{{ route('{{module}}.{{prefix}}{{models}}.show', ${{model}}->id) }}">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
 
-                                            <a class="btn btn-xs btn-warning" href="{{ route('{{prefix}}{{models}}.edit', ${{model}}->id) }}">
+                                            <a class="btn btn-xs btn-warning" href="{{ route('{{module}}.{{prefix}}{{models}}.edit', ${{model}}->id) }}">
                                                 <i class="glyphicon glyphicon-edit"></i>
                                             </a>
 
-                                            <a href="javascript:;" data-url="{{ route('{{prefix}}{{models}}.destroy', ${{model}}->id) }}" class="btn btn-xs btn-danger form-delete">
+                                            <a href="javascript:;" data-url="{{ route('{{module}}.{{prefix}}{{models}}.destroy', ${{model}}->id) }}" class="btn btn-xs btn-danger form-delete">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                             </a>
                                         </td>
@@ -57,6 +57,6 @@
 @endsection
 
 @section('js')
-    @include('_partials._form_confirm_delete')
-    @include('_partials._check_all')
+    @include('{{module}}._partials._form_confirm_delete')
+    @include('{{module}}._partials._check_all')
 @endsection

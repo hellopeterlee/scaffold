@@ -141,7 +141,7 @@ trait MakerTrait
 
     protected function getDestinationViews($model)
     {
-        return "./resources/views/$model/";
+        return "./resources/views/admin/$model/";
     }
 
     /**
@@ -172,7 +172,8 @@ trait MakerTrait
     {
         if($path == "controller")
         {
-            return './app/Http/Controllers/' . $file_name . '.php';
+            $meta = $this->scaffoldCommandM->getMeta();
+            return './app/Http/Controllers/'. $meta['Module'] . '/' . $file_name . '.php';
         }
         elseif($path == "request")
         {

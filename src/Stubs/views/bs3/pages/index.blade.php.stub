@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('{{module}}.layouts.app')
 
 @section('content')
 <div class="container">
@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <h1>
                     <i class="glyphicon glyphicon-align-justify"></i> {{Model}}
-                    <a class="btn btn-success pull-right" href="{{ route('{{prefix}}{{models}}.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                    <a class="btn btn-success pull-right" href="{{ route('{{module}}.{{prefix}}{{models}}.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
                 </h1>
             </div>
 
@@ -30,15 +30,15 @@
                                     {{table_fields_content}}
                                     
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-primary" href="{{ route('{{prefix}}{{models}}.show', ${{model}}->id) }}">
+                                        <a class="btn btn-xs btn-primary" href="{{ route('{{module}}.{{prefix}}{{models}}.show', ${{model}}->id) }}">
                                             <i class="glyphicon glyphicon-eye-open"></i> 
                                         </a>
                                         
-                                        <a class="btn btn-xs btn-warning" href="{{ route('{{prefix}}{{models}}.edit', ${{model}}->id) }}">
+                                        <a class="btn btn-xs btn-warning" href="{{ route('{{module}}.{{prefix}}{{models}}.edit', ${{model}}->id) }}">
                                             <i class="glyphicon glyphicon-edit"></i> 
                                         </a>
 
-                                        <form action="{{ route('{{prefix}}{{models}}.destroy', ${{model}}->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                                        <form action="{{ route('{{module}}.{{prefix}}{{models}}.destroy', ${{model}}->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
                                             {{csrf_field()}}
                                             <input type="hidden" name="_method" value="DELETE">
 
