@@ -1,5 +1,5 @@
 
-Route::resource('/{{module}}/games', '{{Module}}\GamesController',
+Route::resource('/{{module}}/{{models}}', '{{Module}}\{{Models}}Controller',
     [
         'only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy'],
         'as' => '{{module}}'

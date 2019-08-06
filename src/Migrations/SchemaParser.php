@@ -86,6 +86,7 @@ class SchemaParser
 
         $name = array_shift($segments);
         $type = array_shift($segments);
+
         $arguments = [];
         $options = $this->parseOptions($segments);
 
@@ -107,6 +108,7 @@ class SchemaParser
      */
     private function parseOptions($options)
     {
+//        echo(var_export($options) . "\r\n");
         if (empty($options)) return [];
 
         foreach ($options as $option) {

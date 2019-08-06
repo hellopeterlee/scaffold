@@ -1,27 +1,47 @@
-@extends('{{module}}.layouts.app')
+@extends('{{module}}::base')
 
 @section('content')
+    @php
+        if(${{model}}->id){
+            $form_action = ['action' => route('{{module}}.{{models}}.update',${{model}}->id), "method"=>'PUT'];
+            $page_title = '编辑';
+            $mode = 'edit';
+        }else{
+            $form_action = ['action' => route('{{module}}.{{models}}.store') , "method"=>'POST'];
+            $page_title = '添加';
+            $mode = 'create';
+        }
+    @endphp
+
     <div class="layui-card">
-        <div class="layui-card-header">
-            @if(${{model}}->id) 编辑 #{{${{model}}->id}} @else 添加 @endif
-        </div>
+        <div class="layui-card-header"><div class="layui-card-header">{{$page_title}}</div></div>
+        <div class="layui-card-body" style="padding: 15px;">
 
-        <form class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list">
+            <form class="layui-form" lay-filter="layuiadmin-app-form-list" id="mainForm" method="post"
+                action="{{ $form_action['action'] }}">
 
-            {{form_fields_fillable}}
+                <input type="hidden" name="_method" value="{{ $form_action['method'] }}" />
+                @if($mode == 'edit')
+                    <input type="hidden" name="id" value="{{ ${{model}}->id }}" />
+                @endif
 
-            {{csrf_field()}}
+                {{form_fields_fillable}}
 
-            <div class="layui-form-item layui-layout-admin layui-hide">
-                <div class="layui-input-block">
-                    <div class="layui-footer" style="left: 0;">
-                        <button class="layui-btn" lay-submit="" lay-filter="LAY-user-submit" id="LAY-user-submit">立即提交</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                {{csrf_field()}}
+
+                <div class="layui-form-item layui-layout-admin" id="LAY-user-submit-container">
+                    <div class="layui-input-block">
+                        <div class="layui-footer" style="left: 0;">
+                            <button class="layui-btn" lay-submit="" lay-filter="LAY-user-submit" id="LAY-user-submit">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </form>
+            </form>
+
+        </div>
+
     </div>
 @endsection
 

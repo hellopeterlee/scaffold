@@ -1,0 +1,5 @@
+
+                        <tr>
+                            <td style="width: 150px">{{field.Name}}</td>
+                            <td>{{ ${{model}}->{{field.name}} }}</td>
+                        </tr>

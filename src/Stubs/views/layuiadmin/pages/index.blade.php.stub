@@ -1,4 +1,15 @@
-@extends('{{module}}.layouts.app')
+@extends('{{module}}::base')
+
+@section('content_before')
+    <div class="layui-card layadmin-header">
+        <div class="layui-breadcrumb" lay-filter="breadcrumb">
+          <a lay-href="">主页</a>
+          <a><cite>组件</cite></a>
+          <a><cite>数据表格</cite></a>
+          <a><cite>数据操作</cite></a>
+        </div>
+      </div>
+@endsection
 
 @section('content')
     <div class="layui-row layui-col-space15">
@@ -19,10 +30,10 @@
                 </div>
 
                 <div class="layui-card-body">
-                    <div style="padding-bottom: 10px;">
-                        <button class="layui-btn layuiadmin-btn" data-type="batchdel">删除</button>
-                        <button class="layui-btn layuiadmin-btn" data-type="add">添加</button>
-                    </div>
+                    <script type="text/html" id="toolbar">
+                        <button class="layui-btn layui-btn-sm" lay-event="batchdel">删除</button>
+                        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+                    </script>
 
                     <script type="text/html" id="options">
                         <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
@@ -30,17 +41,7 @@
                         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                     </script>
 
-                    <table class="layui-table" id="dataTable" lay-filter="dataTable"
-                        lay-data="{url:'/{{module}}/{{models}}', page:true, id:'dataTable'}" lay-filter="dataTable">
-                        <thead>
-                            <tr>
-                                <th lay-data="{checkbox: true,fixed: true}"></th>
-                                <th lay-data="{field: 'id'}">ID</th>
-                                {{table_fields_header}}
-                                <th lay-data="{fixed: 'right', width: 220, align:'center', toolbar: '#options'}">#</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <table class="layui-table" id="dataTable" lay-filter="dataTable"></table>
                 </div>
             </div>
         </div>
@@ -54,6 +55,19 @@
             const $ = layui.$;
             const admin = layui.admin;
             const form = layui.form;
+
+            const mainTable = table.render({
+                elem: '#dataTable'
+                , height: 'full-130'
+                , url: '{{ route("{{module}}.{{models}}.index") }}'
+                , toolbar : '#toolbar'
+                , cols: [[ //表头
+                    {checkbox: true,fixed: true},
+                    {{table_header_col}}
+                    {title: "操作", width: 150, align: 'center', fixed: 'right', toolbar: '#options'}
+                ]]
+                , page: true
+            });
 
             form.on('submit(LAY-user-search)', function (data) {
                 const field = data.field;
@@ -81,8 +95,8 @@
                     layer.open({
                         type: 2,
                         title: "查看{{model}}",
-                        content: `/{{models}}/${rowdata.id}`,
-                        area: ["420px", "450px"],
+                        content: `/{{module}}/{{models}}/${rowdata.id}`,
+                        area: ["800px", "600px"],
                         btn: ["关闭"]
                     });
                 } else if (layEvent === 'del') { //删除
@@ -90,7 +104,7 @@
                         //向服务端发送删除指令
                         admin.req({
                             type : 'DELETE',
-                            url: `/{{models}}/${rowdata.id}`,
+                            url: `/{{module}}/{{models}}/${rowdata.id}`,
                             success : function(data){
                                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                                 layer.close(index);
@@ -102,7 +116,7 @@
                         type: 2,
                         title: "编辑{{model}}",
                         content: `/{{module}}/{{models}}/${rowdata.id}/edit`,
-                        area: ["420px", "430px"],
+                        area: ["800px", "600px"],
                         btn: ["确定", "取消"],
                         yes: function (index, layero) {
                             const iframeWindow = window['layui-layer-iframe' + index];
@@ -119,17 +133,20 @@
                                         layer.close(index);
                                     }
                                 });
+                                return false;
                             });
                             submit_button.trigger("click")
                         },
                         success: function (e, t) {
+                            const submit_button = e.find("iframe").contents().find("#LAY-user-submit");
+                            submit_button.closest('div.layui-layout-admin').hide();
                         }
                     });
                 }
             });
 
             //事件
-            const active = {
+            const toolbarEvent = {
                 batchdel: function () {
                     const checkStatus = table.checkStatus('dataTable');
                     const checkData = checkStatus.data; //得到选中的数据
@@ -142,7 +159,7 @@
                         const ids = checkData.map( item => item.id );
                         admin.req({
                             type : 'post',
-                            url: "/{{module}}/{{models}}/batch_destroy",
+                            url: "{{ route('{{module}}.{{models}}.batch_destroy') }}",
                             data : {ids},
                             success : function(data){
                                 table.reload('dataTable');
@@ -156,7 +173,7 @@
                         type: 2,
                         title: "添加{{model}}",
                         content: "/{{module}}/{{models}}/create",
-                        area: ["420px", "430px"],
+                        area: ["800px", "600px"],
                         btn: ["确定", "取消"],
                         yes: function (index, layero) {
                             const iframeWindow = window['layui-layer-iframe' + index];
@@ -173,18 +190,22 @@
                                         layer.close(index);
                                     }
                                 });
+                                return false;
                             });
                             submit_button.trigger("click")
                         },
                         success: function (e, t) {
+                            const submit_button = e.find("iframe").contents().find("#LAY-user-submit");
+                            submit_button.closest('div.layui-layout-admin').hide();
                         }
                     });
                 }
             };
-
-            $('.layui-btn.layuiadmin-btn').on('click', function () {
-                const type = $(this).data('type');
-                active[type] ? active[type].call(this) : '';
+            table.on('toolbar(dataTable)', function (obj) {
+                console.info('obj', obj);
+                const checkStatus = table.checkStatus(obj.config.id);
+                const event = obj.event;
+                toolbarEvent[event] ? toolbarEvent[event].call(this) : '';
             });
         });
     </script>

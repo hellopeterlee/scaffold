@@ -1,4 +1,4 @@
-@extends('{{module}}.layouts.app')
+@extends('{{module}}::layouts.app')
 
 @section('content')
 

@@ -1,0 +1,8 @@
+
+                <div class="item">
+                    <div class="label">{{field.cnName}}：</div>
+                    <div class="label_value">
+                        <textarea name="{{field.name}}" id="field_{{field.name}}-field" cols="45" rows="8" class="textarea">{{ old('{{field.name}}', ${{model}}->{{field.name}} ) }}</textarea>
+                        <div class="fl org"> </div>
+                    </div>
+                </div>

@@ -38,9 +38,12 @@ class MakeLayout
     protected function start()
     {
         $this->scaffoldCommandObj->line("\n--- Layouts ---");
+//        $ui = $this->scaffoldCommandObj->getMeta()['ui'];
+        $meta = $this->scaffoldCommandObj->getMeta();
+        $ui = $meta['ui'];
 
-        $ui = $this->scaffoldCommandObj->getMeta()['ui'];
-        $this->putViewLayout("Stubs/views/$ui/layout.blade.php.stub", 'layouts/app.blade.php');
+        $this->putViewLayout("Stubs/views/$ui/layout.blade.php.stub", 'layout.blade.php');
+        $this->putViewLayout("Stubs/views/$ui/base.blade.php.stub", 'base.blade.php');
         $this->putViewLayout("Stubs/views/$ui/error.blade.php.stub", 'common/error.blade.php');
         $this->putViewLayout("Stubs/views/$ui/_partials/_form_confirm_delete.blade.php.stub", '_partials/_form_confirm_delete.blade.php');
         $this->putViewLayout("Stubs/views/$ui/_partials/_check_all.blade.php.stub", '_partials/_check_all.blade.php');
@@ -56,18 +59,16 @@ class MakeLayout
      */
     protected function putViewLayout($stub, $file)
     {
-        $path_file = $this->getPathResource().$file;
-        $path_stub = substr(__DIR__,0, -5) .$stub;
+        $path_file = $this->getPathResource() . $file;
+        $path_stub = substr(__DIR__, 0, -5) . $stub;
 
         $this->makeDirectory($path_file);
 
-        if ($this->files->exists($path_file))
-        {
+        if ($this->files->exists($path_file)) {
             return $this->scaffoldCommandObj->comment("x $path_file");
         }
 
-        if (!$this->files->exists($path_stub))
-        {
+        if (!$this->files->exists($path_stub)) {
             return $this->scaffoldCommandObj->comment("x :( $path_stub not exist");
         }
         $html = $this->files->get($path_stub);
@@ -83,6 +84,8 @@ class MakeLayout
      */
     protected function getPathResource()
     {
-        return './resources/views/admin/';
+        $meta = $this->scaffoldCommandObj->getMeta();
+        $module_base_dir = './app/Modules/' . $meta['Module'];
+        return $module_base_dir . '/resources/views/';
     }
 }

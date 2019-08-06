@@ -1,0 +1,44 @@
+<form id="delete-form" action="" method="POST" style="display:none;">
+    {{ method_field('DELETE')  }}
+    {{ csrf_field() }}
+</form>
+
+<script>
+
+    function swal_confirm(title,callback) {
+        swal({
+            title: title,
+            text: "删除后将无法恢复，请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "删除",
+            closeOnConfirm: true
+        }, function (isConfirm) {
+            if(isConfirm){
+                callback && callback();
+                return false;
+            }else{
+                return true;
+            }
+        });
+    }
+
+    function batch_delete_confirm(thiz){
+        swal_confirm("您确定要删除这些信息吗",function(){
+            $('#betch_form').submit();
+        });
+    }
+
+    $(".form-delete").click(function(){
+        var tUrl = $(this).attr('data-url');
+
+        swal_confirm("您确定要删除这条信息吗",function(){
+            $("#delete-form").attr("action",tUrl).submit();
+            console.log(tUrl);
+        });
+        return false;
+    });
+
+
+</script>

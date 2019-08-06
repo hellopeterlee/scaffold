@@ -30,7 +30,7 @@ class ScaffoldMakeCommand extends Command
      *
      * @var string
      */
-    protected $name = 'make:scaffold';
+    protected $name = 'make:peter_scaffold';
 
     /**
      * The console command description.
@@ -273,7 +273,7 @@ class ScaffoldMakeCommand extends Command
                     'ui',
                     InputOption::VALUE_OPTIONAL,
                     'UI Framework to generate scaffold. (Default hplus)',
-                    'hplus'
+                    'layuiadmin'
                 ],
                 [
                     'validator',
@@ -312,7 +312,7 @@ class ScaffoldMakeCommand extends Command
                 ],
                 [
                     'module',
-                    'module',
+                    'm',
                     InputOption::VALUE_OPTIONAL,
                     'Generate files in module folder',
                     'admin'
@@ -341,6 +341,7 @@ class ScaffoldMakeCommand extends Command
     {
         $names = [];
         $args_name = $this->argument('name');
+        $args_name = camel_case($args_name);
 
         // Name[0] = Tweet
         $names['Name'] = str_singular(ucfirst($args_name));
@@ -350,7 +351,6 @@ class ScaffoldMakeCommand extends Command
         $names['names'] = str_plural(strtolower(preg_replace('/(?<!^)([A-Z])/', '_$1', $args_name)));
         // Name[3] = tweet
         $names['name'] = str_singular(strtolower(preg_replace('/(?<!^)([A-Z])/', '_$1', $args_name)));
-
 
         if (!isset($names[$config])) {
             throw new \Exception("Position name is not found");

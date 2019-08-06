@@ -1,0 +1,8 @@
+
+                <div class="item @if($errors->has('{{field.name}}')) has-error @endif">
+                    <div class="label">{{field.cnName}}：</div>
+                    <div class="label_value">
+                        <input class="text" type="text" value="{{ old('{{field.name}}', ${{model}}->{{field.name}} ) }}" size="20" name="{{field.name}}" id="field_{{field.name}}-field">
+                        <div class="fl org"> </div>
+                    </div>
+                </div>

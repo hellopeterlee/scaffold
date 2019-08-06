@@ -30,6 +30,7 @@ trait MakerTrait
     {
         $this->files = $files;
         $this->scaffoldCommandM = $scaffoldCommand;
+        $this->scaffoldCommandObj = $scaffoldCommand;
 
         $this->generateNames($this->scaffoldCommandM);
     }
@@ -38,10 +39,8 @@ trait MakerTrait
     {
         $data = [];
 
-        foreach ($array as $key => $value)
-        {
-            if(gettype($value) == 'array')
-            {
+        foreach ($array as $key => $value) {
+            if (gettype($value) == 'array') {
                 array_merge(
                     $data,
                     $this->getArrayRecursive($value, "$parent")
@@ -61,16 +60,14 @@ trait MakerTrait
         $files = [];
         $scan = array_diff(scandir($path), ['.', '..']);
 
-        foreach ($scan as $file)
-        {
+        foreach ($scan as $file) {
             $file = realpath("$path$file");
 
-            if(is_dir($file))
-            {
+            if (is_dir($file)) {
                 $files = array_merge
                 (
                     $files,
-                    $this->getFilesRecursive($file.DIRECTORY_SEPARATOR)
+                    $this->getFilesRecursive($file . DIRECTORY_SEPARATOR)
                 );
                 continue;
             }
@@ -90,7 +87,7 @@ trait MakerTrait
      */
     protected function getStubPath()
     {
-        return substr(__DIR__,0, -5) . 'Stubs' . DIRECTORY_SEPARATOR;
+        return substr(__DIR__, 0, -5) . 'Stubs' . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -102,8 +99,7 @@ trait MakerTrait
     {
         $stubsFieldsPath = $this->getStubPath() . join(DIRECTORY_SEPARATOR, ['views', $ui, 'fields', $type, '']);
 
-        if($this->existsDirectory($stubsFieldsPath))
-        {
+        if ($this->existsDirectory($stubsFieldsPath)) {
             $this->scaffoldCommandM->error('Stub not found');
             return;
         }
@@ -112,8 +108,7 @@ trait MakerTrait
 
         $stubs = [];
 
-        foreach ($stubsFieldsFiles as $file)
-        {
+        foreach ($stubsFieldsFiles as $file) {
             $stubs[str_replace($stubsFieldsPath, '', $file)] = $this->getFile($file);
         }
 
@@ -130,8 +125,7 @@ trait MakerTrait
         $viewsPath = $this->getStubPath() . join(DIRECTORY_SEPARATOR, ['views', $ui, 'pages', '']);
         $files = $this->getFilesRecursive($viewsPath);
         $viewFiles = [];
-        foreach ($files as $file)
-        {
+        foreach ($files as $file) {
             $viewFiles[str_replace($viewsPath, '', $file)] = $file;
         }
 
@@ -141,7 +135,9 @@ trait MakerTrait
 
     protected function getDestinationViews($model)
     {
-        return "./resources/views/admin/$model/";
+        $meta = $this->scaffoldCommandObj->getMeta();
+        $module_base_dir = './app/Modules/' . $meta['Module'];
+        return $module_base_dir."/resources/views/$model/";
     }
 
     /**
@@ -153,9 +149,8 @@ trait MakerTrait
      */
     protected function buildStub(array $metas, &$template)
     {
-        foreach($metas as $k => $v)
-        {
-            $template = str_replace("{{". $k ."}}", $v, $template);
+        foreach ($metas as $k => $v) {
+            $template = str_replace("{{" . $k . "}}", $v, $template);
         }
 
         return $template;
@@ -168,71 +163,44 @@ trait MakerTrait
      * @param string $path
      * @return string
      */
-    protected function getPath($file_name, $path='controller')
+    protected function getPath($file_name, $path = 'controller')
     {
-        if($path == "controller")
-        {
-            $meta = $this->scaffoldCommandM->getMeta();
-            return './app/Http/Controllers/'. $meta['Module'] . '/' . $file_name . '.php';
-        }
-        elseif($path == "request")
-        {
-            return './app/Http/Requests/'.$file_name.'.php';
-        }
-        elseif($path == "observer")
-        {
-            return './app/Observers/'.$file_name.'.php';
-        }
-        elseif($path == "policy")
-        {
-            return './app/Policies/'.$file_name.'.php';
-        }
-        elseif($path == "factory")
-        {
-            return './database/factories/'.$file_name.'Factory.php';
-        }
-        elseif($path == "model")
-        {
-            return './app/Models/'.$file_name.'.php';
-        }
-        elseif($path == "model-trait")
-        {
-            return './app/Models/Traits/'.$file_name.'Operation.php';
-        }
-        elseif($path == "seed")
-        {
-            return './database/seeds/'.$file_name.'.php';
-        }
-        elseif($path == "view-index")
-        {
-            return './resources/views/'.$file_name.'/index.blade.php';
-        }
-        elseif($path == "view-edit")
-        {
-            return './resources/views/'.$file_name.'/edit.blade.php';
-        }
-        elseif($path == "view-show")
-        {
-            return './resources/views/'.$file_name.'/show.blade.php';
-        }
-        elseif($path == "view-create")
-        {
-            return './resources/views/'.$file_name.'/create.blade.php';
-        }
-        elseif($path == "localization"){
-            return './resources/lang/'.$file_name.'.php';
-        }
-        elseif($path == "route"){
-            return './routes/web.php';
-        }
-        elseif($path == "route_old"){
+        $meta = $this->scaffoldCommandObj->getMeta();
+        $module_base_dir = './app/Modules/' . $meta['Module'];
+        if ($path == "controller") {
+            return $module_base_dir . '/Http/Controllers/' . $file_name . '.php';
+        } elseif ($path == "request") {
+            return $module_base_dir . '/Http/Requests/' . $file_name . '.php';
+        } elseif ($path == "observer") {
+            return './app/Observers/' . $file_name . '.php';
+        } elseif ($path == "policy") {
+            return './app/Policies/' . $file_name . '.php';
+        } elseif ($path == "factory") {
+            return './database/factories/' . $file_name . 'Factory.php';
+        } elseif ($path == "model") {
+            return './app/Models/' . $file_name . '.php';
+        } elseif ($path == "model-trait") {
+            return './app/Models/Traits/' . $file_name . 'Operation.php';
+        } elseif ($path == "seed") {
+            return './database/seeds/' . $file_name . '.php';
+        } elseif ($path == "view-index") {
+            return $module_base_dir . '/resources/views/' . $file_name . '/index.blade.php';
+        } elseif ($path == "view-edit") {
+            return $module_base_dir . '/resources/views/' . $file_name . '/edit.blade.php';
+        } elseif ($path == "view-show") {
+            return $module_base_dir . '/resources/views/' . $file_name . '/show.blade.php';
+        } elseif ($path == "view-create") {
+            return $module_base_dir . '/resources/views/' . $file_name . '/create.blade.php';
+        } elseif ($path == "localization") {
+            return './resources/lang/' . $file_name . '.php';
+        } elseif ($path == "route") {
+            return $module_base_dir . '/routes/web.php';
+        } elseif ($path == "route_old") {
             return './app/Http/routes.php';
-        }
-        elseif($path == "repository"){
-            return './app/Repositories/'.$file_name.'.php';
-        }
-        elseif($path == "repository_eloquent"){
-            return './app/Repositories/'.$file_name.'.php';
+        } elseif ($path == "repository") {
+            return './app/Repositories/' . $file_name . '.php';
+        } elseif ($path == "repository_eloquent") {
+            return './app/Repositories/' . $file_name . '.php';
         }
     }
 
@@ -249,20 +217,19 @@ trait MakerTrait
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string  $path
+     * @param  string $path
      * @return string
      */
     protected function makeDirectory($path)
     {
-        if ( ! $this->files->isDirectory(dirname($path)))
-        {
+        if (!$this->files->isDirectory(dirname($path))) {
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
     }
 
     protected function compileStub($filename)
     {
-        $stub = $this->files->get(substr(__DIR__,0, -5) . 'Stubs/'.$filename.'.stub');
+        $stub = $this->files->get(substr(__DIR__, 0, -5) . 'Stubs/' . $filename . '.stub');
 
         $this->buildStub($this->scaffoldCommandObj->getMeta(), $stub);
         // $this->replaceValidator($stub);

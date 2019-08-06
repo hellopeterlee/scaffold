@@ -1,0 +1,43 @@
+@extends('admin::layouts.app')
+
+@section('content')
+
+<div class="container">
+    <div class="warpper">
+        <div class="title"><a href="{{ route('{{module}}.{{prefix}}{{models}}.index')}}" class="s-back">返回</a>{{models}} - 添加{{model}}</div>
+        <div class="content">
+            <div class="explanation" id="explanation">
+                <div class="ex_tit"><i class="sc_icon"></i><h4>操作提示</h4><span id="explanationZoom" title="收起提示"></span></div>
+                <ul>
+                    <li>标识“<em>*</em>”的选项为必填项，其余为选填项。</li>
+                    <li>请按提示信息填写每一个字段。</li>
+                </ul>
+            </div>
+            <div class="flexilist">
+                <div class="common-content">
+                    <div class="mian-info">
+                    @if(${{model}}->id)
+                        <form class="form-horizontal" action="{{ route('{{module}}.{{prefix}}{{models}}.update', ${{model}}->id) }}" method="POST" accept-charset="UTF-8">
+                            <input type="hidden" name="_method" value="PUT">
+                    @else
+                        <form class="form-horizontal" action="{{ route('{{module}}.{{prefix}}{{models}}.store') }}" method="POST" accept-charset="UTF-8">
+                    @endif
+                            {{csrf_field()}}
+
+                            {{form_fields_fillable}}
+                            <div class="item">
+                                <div class="label">&nbsp;</div>
+                                <div class="label_value info_btn">
+                                    <input type="submit" value=" 确定 " class="button" id="submitBtn">
+                                    <input type="reset" value=" 重置 " class="button button_reset">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

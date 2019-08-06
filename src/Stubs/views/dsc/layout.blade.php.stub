@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>后台管理系统 @yield('title', config('app.name', 'Fangxianbz')) - {{ config('app.name', '后台管理系统')  }}</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="//cdn.peterlee.cn/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/animate.min.css" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/layer/3.1.0/theme/default/layer.css" rel="stylesheet">
+    <link href="//cdn.peterlee.cn/hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    @yield('css')
+
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token()
+        ]) !!};
+    </script>
+</head>
+
+<body class="gray-bg">
+    <div id="app">
+        <div class="container wrapper wrapper-content">
+            @if(session('message'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{@session('message')}}
+                </div>
+            @endif
+            @yield('content')
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="//cdn.peterlee.cn/hplus/js/jquery.min.js?v=2.1.4"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="//cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+    <script src="//cdn.peterlee.cn/hplus/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    @yield('js')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-XSRF-TOKEN': $.cookie('XSRF-TOKEN')
+            }
+        });
+    </script>
+    <script src="//cdn.peterlee.cn/hplus/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",})});
+    </script>
+</body>
+</html>

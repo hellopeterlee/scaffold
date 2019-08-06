@@ -79,6 +79,8 @@ class MakeView
         $destination = $this->getDestinationViews($this->scaffoldCommandObj->getMeta()['models']);
         $metas = $this->scaffoldCommandObj->getMeta();
 
+        $tmp = $this->getFields($metas['ui'], 'fillable');
+
         $metas = array_merge_recursive
         (
             $metas,
@@ -89,6 +91,7 @@ class MakeView
                 'table_fields_header' => $this->getFields($metas['ui'], 'header'),
                 'table_fields_content' => $this->getFields($metas['ui'], 'content'),
                 'table_search_content' => $this->getFields($metas['ui'], 'search'),
+                'table_header_col' => $this->getFields($metas['ui'], 'table_header_col'),
             ]
         );
 
@@ -117,6 +120,7 @@ class MakeView
         $stubsFields = $this->getStubFields($ui, $type);
         $stubsFieldsAllow = array_keys($stubsFields);
         $schemas = $this->getSchemaArray();
+
         $metas = $this->scaffoldCommandObj->getMeta();
 
         $stubs = [];
@@ -148,6 +152,7 @@ class MakeView
         $data['field.name'] = $options['name'];
         $data['field.Name'] = ucwords($options['name']);
         $data['field.type'] = @$options['type'];
+        $data['field.cnName'] = @$options['options']['comment'] ?: $data['field.name'];
         $data['field.value.default'] = @$options['options']['default'];
 
         return $data;

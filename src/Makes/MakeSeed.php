@@ -26,6 +26,7 @@ class MakeSeed
     {
         $this->files = $files;
         $this->scaffoldCommandObj = $scaffoldCommand;
+        $this->scaffoldCommandM = $scaffoldCommand;
 
         $this->start();
     }

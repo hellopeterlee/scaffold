@@ -1,7 +1,7 @@
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">{{field.Name}}</label>
+                    <label class="layui-form-label">{{field.cnName}}</label>
                     <div class="layui-input-block">
-                        <textarea name="{{field.name}}" id="{{field.name}}-field" lay-verify="required" placeholder="请输入" class="layui-textarea">{{ old('{{field.name}}', ${{model}}->{{field.name}} ) }}</textarea>
+                        <textarea name="{{field.name}}" id="{{field.name}}_field" lay-verify="required" placeholder="请输入" class="layui-textarea">{{ old('{{field.name}}', ${{model}}->{{field.name}} ) }}</textarea>
                     </div>
                 </div>

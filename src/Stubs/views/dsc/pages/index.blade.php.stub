@@ -1,0 +1,75 @@
+@extends('{{module}}::layouts.app')
+
+@section('content')
+
+<body class="iframe_body">
+    <div class="warpper">
+        <div class="title">列表</div>
+        <div class="content">
+            <div class="tabs_info">
+                <ul>
+                    <li class="curr">
+                        <a href="{{ route('{{module}}.{{prefix}}{{models}}.index') }}">列表</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="explanation" id="explanation">
+                <div class="ex_tit"><i class="sc_icon"></i><h4>操作提示</h4><span id="explanationZoom" title="收起提示"></span></div>
+                <ul>
+                    <li>信息管理。</li>
+                </ul>
+            </div>
+            <div class="flexilist">
+                <div class="common-head">
+                    <div class="search">
+                        <form action="javascript:;" name="searchForm" onSubmit="searchGoodsname(this);">
+                            <div class="input">
+                                <input type="text" name="user_name" class="text nofocus" placeholder="{{model}}名称" autocomplete="off" />
+                                <input type="submit" value="" class="not_btn" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="fl">
+                        <a href="{{ route('{{module}}.{{prefix}}{{models}}.create') }}"><div class="fbutton"><div class="add" title="添加{{model}}"><span><i class="icon icon-plus"></i>添加{{model}}</span></div></div></a>
+                    </div>
+                </div>
+                <div class="common-content">
+                    <div class="list-div" id="listDiv">
+                        <form method="POST" action="" name="listForm" onsubmit="return confirm_bath()">
+                            <input type="hidden" name="shop_num" value="" />
+                            <table cellpadding="1" cellspacing="1">
+                                <thead>
+                                    {{table_fields_header}}
+                                    <th width="14%" class="handle">操作</th>
+                                </thead>
+                                <tbody>
+                                    @foreach(${{models}} as ${{model}})
+                                    <tr>
+                                        {{table_fields_content}}
+                                        <td class="handle">
+                                            <div class="tDiv handle_tDiv ht_tdiv_w120">
+                                                <p>
+                                                    <a href="{{ route('{{module}}.{{prefix}}{{models}}.edit', ${{model}}->id) }}" title="编辑" class="btn_edit"><i class="icon icon-edit"></i>编辑</a>
+                                                    <a href="{{ route('{{module}}.{{prefix}}{{models}}.show', ${{model}}->id) }}"  class="btn_see nyroModal"><i class="sc_icon sc_icon_see"></i>查看</a>
+                                                    <a href="javascript:confirm_redirect('您确实要删除吗？', '{{ route('{{module}}.{{prefix}}{{models}}.destroy', ${{model}}->id) }}')" title="移除" class="btn_trash"><i class="icon icon-trash"></i>删除</a>
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+@endsection
+
+@section('js')
+    @include('{{module}}._partials._form_confirm_delete')
+    @include('{{module}}._partials._check_all')
+@endsection

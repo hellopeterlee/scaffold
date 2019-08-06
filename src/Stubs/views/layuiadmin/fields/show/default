@@ -1,5 +1,5 @@
 
                         <tr>
-                            <td>{{field.Name}}</td>
+                            <td>{{field.cnName}}</td>
                             <td>{{ ${{model}}->{{field.name}} }}</td>
                         </tr>
